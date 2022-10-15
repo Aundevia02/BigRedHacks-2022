@@ -2,6 +2,10 @@ from fractions import Fraction
 import pandas as pd
 import difflib
 
+carbon_data = pd.read_csv("data/carbon-data.csv")
+items = carbon_data['Item']
+items = [x.lower() for x in items]
+
 
 def parseIngredient(ingredient_line, ingredient):
     ingredient_line = ingredient_line.lower()
@@ -50,8 +54,11 @@ def parseIngredient(ingredient_line, ingredient):
 # data is the rest of the ingreidents such as ["large","eggs"]. it should return the ingredient eggs
 # returns none if it doesn't match
 def getIngredient(data):
-    carbon_data = pd.read_csv("carbon-data.csv")
-    items = carbon_data["Item"]
+    for item in data:
+        choices = difflib.get_close_matches(item, items)
+        if choices == []:
+            return "none"
+        return choices[0]
 
 
 def stupidChar(c):
@@ -72,10 +79,14 @@ def parseIngredient(ingredient_line):
         del data[0]
     else:
         num = int(data[0])
-        if (stupidChar(data[1]) != -1):
-            num += stupidChar(data[1])
         del data[0]
-        del data[1]
+        if len(data[0]) == 1:
+            if (stupidChar(data[0]) != -1):
+                num += stupidChar(data[0])
+                del data[0]
+        elif "/" in data[0]:
+            num += float(sum(Fraction(s) for s in data[1].split()))
+            del data[0]
 
     abbr = {"tsp": "teaspoon", "tbsp": "tablespoon", "fl oz": "fluid ounce",
             "c": "cup", "pt": "pint", "qt": "quart", "gal": "gallon"}
@@ -88,17 +99,26 @@ def parseIngredient(ingredient_line):
 
     measure = data[0]
 
+    if measure[-1] == "s":
+        measure = measure[:-1]
     # not a discrete
     if measure in measures:
         if measure in abbr:
             measure = abbr[measure]
         value = num * grams[measure]
         del data[0]
-        return (getIngredient(data), value)
+        item = getIngredient(data)
+        if item == "none":
+            return (item, 0)
+        return (item, value)
     else:  # is a discrete
         item = getIngredient(data)
-        value = num * discretes[item]
-        return (item, value)
+        if item == "none":
+            return (item, 0)
+        if item in discretes:
+            value = num * discretes[item]
+            return (item, value)
+        return (item, 0)
 
 
 def printLines():
@@ -119,7 +139,7 @@ def printLines():
     ]
     for i in range(len(lines)):
         print(
-            f"Ingredient: {ingredients[i]} \nIngredient line: {lines[i]} \ngrams: {parseIngredient(lines[i],ingredients[i])}")
+            f"Ingredient: {ingredients[i]} \ngrams: {parseIngredient(lines[i])}")
 
 
 printLines()
