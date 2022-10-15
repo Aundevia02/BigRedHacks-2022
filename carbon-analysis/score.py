@@ -9,10 +9,22 @@ print(carbon_data.head())
 print(carbon_data.loc[carbon_data['Item'] == 'BEER IN CAN'])
 
 
-def getScore(ingredients, servings):
+def getWaterScores(ingredients, servings):
     """
     ingredients is a string highlighted by the user, containing ingredients and amounts
     servings is the number of servings (int)
+    returns a list of [litres of water/ kg food] per serving, for each ingredient
+    """
+
+    water_data = pd.read_csv("water-data.csv")
+    print(water_data.head())
+
+
+def getCarbonScores(ingredients, servings):
+    """
+    ingredients is a string highlighted by the user, containing ingredients and amounts
+    servings is the number of servings (int)
+    returns a list of [kg CO2 eq/ kg food] per serving, for each ingredient
     """
     # creating a data frame
     carbon_data = pd.read_csv("carbon-data.csv")
@@ -21,3 +33,7 @@ def getScore(ingredients, servings):
     parsed_ingredients = []
     for idx, line in enumerate(ingredientLines):
         parsed_ingredients.append(parseIngredient(line, ingredients[idx]))
+
+
+def find_ingredient(string, all_ingredients):
+    pass
