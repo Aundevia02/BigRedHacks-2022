@@ -1,0 +1,129 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<body>
+
+  <h2>My First Web Page</h2>
+  <p>My First Paragraph.</p>
+
+  <p id="demo"></p>
+
+  <script>
+    alert("test message");
+    document.getElementById("demo").innerHTML = chrome.tabs.executeScript({
+      code: "window.getSelection().toString();"
+    }, function (selection) {
+      selection
+    });
+  </script>
+
+</body>
+
+</html> -->
+
+
+
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>TitlePopHTML</title>
+  <style>
+    body {
+      width: 400px;
+      height: 500px;
+      background: rgb(236, 236, 236)
+    }
+
+    h1 {
+      color: rgb(9, 171, 82);
+    }
+
+    p {
+      color: rgb(52, 206, 121);
+      margin: 20px;
+    }
+
+    p1 {
+      color: rgb(196, 52, 206);
+      margin: 20px;
+    }
+
+    p3{
+        color: brown;
+        text-decoration: underline;
+    }
+
+    #rcorners2 {
+      border-radius: 25px;
+      border: 2px solid #73AD21;
+      padding: 20px; 
+      width: 200px;
+      height: 150px;  
+    }
+
+    meter {
+    width:300px; height:20px;
+    }
+    ::-webkit-meter-optimum-value{
+      background: red;
+    }
+    ::-webkit-meter-suboptimum-value{
+      background: yellow;
+    }
+    ::-webkit-meter-even-less-good-value{
+      background: green;
+    }
+
+    .flex-co2-container {
+      padding: 5px;
+      margin-top: 5px;
+      border: 2px solid;
+      border-radius: 25px;
+      border-color: purple;
+    }
+
+    .flex-water-container{
+      padding: 5px;
+      margin-top: 5px;
+      border: 2px solid;
+      border-radius: 25px;
+      border-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Elea</h1>
+  <p>Environmental Report:</p>
+  <!-- <p1 id="demo"></p1> -->
+
+  <p3> Carbon Score </p3>
+  <div class="flex-co2-container">
+    <p2 id = "carbon-score"> temp carbon score </p2>
+    <div>
+      <label for="co2ScoreLine"></label>
+      <meter id="co2ScoreLine" value=100 min=0 low=30 high=60 max=100 optimum=20>0 out of 10</meter><br>
+    </div>
+  </div>
+
+  <p3> Water Score </p3>
+  <div class = "flex-water-container"> 
+    <p2 id = "water-score"> temp water score </p2>
+    <div>
+      <label for="waterScoreLine"></label>
+      <meter id="waterScoreLine" value=100 min=0 low=30 high=60 max=100 optimum=20>0 out of 10</meter><br>
+    </div>
+  </div>
+
+
+
+  
+
+  
+
+  <script type="text/javascript" src="popup.js"></script>
+</body>
+
+</html>
