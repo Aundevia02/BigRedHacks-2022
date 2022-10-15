@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "Akshay Test",
+    "description": "Desc for Test",
+    "version": "1.0.0",
+    "icons": {
+        "16": "main_icon.png",
+        "48": "main_icon.png",
+        "128": "main_icon.png"
+    },
+    "permissions": [
+        "activeTab"
+    ],
+    "browser_action": {
+        "default_icon": "main_icon.png",
+        "default_popup": "popup.html"
+    }
+}

@@ -1,0 +1,62 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<body>
+
+  <h2>My First Web Page</h2>
+  <p>My First Paragraph.</p>
+
+  <p id="demo"></p>
+
+  <script>
+    alert("test message");
+    document.getElementById("demo").innerHTML = chrome.tabs.executeScript({
+      code: "window.getSelection().toString();"
+    }, function (selection) {
+      selection
+    });
+  </script>
+
+</body>
+
+</html> -->
+
+
+
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>TitlePopHTML</title>
+  <style>
+    body {
+      width: 400px;
+      height: 500px;
+      background: rgb(236, 236, 236)
+    }
+
+    h1 {
+      color: rgb(9, 171, 82);
+    }
+
+    p {
+      color: rgb(52, 206, 121);
+      margin: 20px;
+    }
+
+    p1 {
+      color: rgb(196, 52, 206);
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Elea</h1>
+  <p>Environmental Report:</p>
+  <p1 id="demo"></p1>
+  <script type="text/javascript" src="popup.js"></script>
+</body>
+
+</html>
