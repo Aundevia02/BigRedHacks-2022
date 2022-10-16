@@ -26,6 +26,7 @@ def get_ingredients(html):
     match = '<span data-ingredient-quantity="true">(.*)<\/span>.*<span data-ingredient-unit="true">(.*)<\/span>.*<span data-ingredient-name="true">(.*)<\/span>'
 
     matches = re.findall(match, html)
+
     return matches
 
 

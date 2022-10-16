@@ -1,4 +1,4 @@
-from score import getScore
+from score import getScores
 from parse import parseIngredient
 from parseHTML import get_ingredients, get_servings
 from flask import Flask, request, jsonify
@@ -12,14 +12,13 @@ app = Flask(__name__)
 def query():
     html = request.args.get['ingredients']
 
-    ingrediants = get_ingredients(html)
+    ingredients = get_ingredients(html)
+    servings = get_servings(html)
 
-    carbon_scores = getCarbonScores(ingredients, servings)
-    water_scores = getWaterScores(ingredients, servings)
-    total_carbon = sum(carbon_scores)
-    total_water = sum(water_scores)
+    (ingr_scores, totalCarbonScore, totalWaterScore) = getScores(
+        ingredients, servings)
 
-    r = {"carbon_scores": carbon_scores, "total_carbon": total_carbon,
-         "water_scores": water_scores, "total_water": total_water}
+    r = {"scores": ingr_scores, "total_carbon": totalCarbonScore,
+         "total_water": totalWaterScore}
 
     return jsonify(r)
