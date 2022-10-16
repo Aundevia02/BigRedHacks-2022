@@ -11,10 +11,9 @@ app = Flask(__name__)
 @app.route("/query", methods=['POST'])
 def query():
     html = request.data.decode()
-    # print(html)
+    print(html)
     ingredients = get_ingredients(html)
     servings = int(get_servings(html))
-    print(servings)
 
     (ingr_scores, totalCarbonScore, totalWaterScore) = getScores(
         ingredients, servings)
@@ -23,5 +22,7 @@ def query():
 
     r = {"scores": ingr_scores, "total_carbon": totalCarbonScore,
          "total_water": totalWaterScore}
+
+    print(r)
 
     return jsonify(r)

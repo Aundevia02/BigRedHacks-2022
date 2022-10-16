@@ -18,17 +18,16 @@ waterItems = [x.lower().strip() for x in water_items]
 
 
 def getIngredient(ingr):
-    choices = difflib.get_close_matches(ingr, carbonItems)
+    choices = difflib.get_close_matches(ingr, carbonItems, cutoff=0.8)
     if choices == []:
         return "none"
-    print(f"ingr: {ingr}, choice: {choices[0]}")
 
     return choices[0]
 
 
 def getIngredientWater(ingr):
     ingr = ingr.lower()
-    choices = difflib.get_close_matches(ingr, waterItems)
+    choices = difflib.get_close_matches(ingr, waterItems, cutoff=0.8)
     if choices == []:
         return "none"
     #print(f"ingr: {ingr}, choice: {choices[0]}")
@@ -60,7 +59,7 @@ def getScores(ingredients, servings):
     ingr_scores = {}
     for (amt, unit, i) in ingredients:
         i = i.strip().replace(",", "").replace(".", "")
-        print(f"amt: {amt}, unit: {unit}, ingr: {i}")
+        #print(f"amt: {amt}, unit: {unit}, ingr: {i}")
 
         ingr = getIngredient(i.split(" ")[-1].lower())
         amt = parseAmount(amt)
@@ -75,14 +74,14 @@ def getScores(ingredients, servings):
             else:
                 continue
 
-        waterScore = round(getWaterScore(ingr, amt)/servings, 4)
-        carbonScore = round(getCarbonScore(ingr, amt)/servings, 4)
+        waterScore = round(getWaterScore(ingr, amt), 4)
+        carbonScore = round(getCarbonScore(ingr, amt), 4)
         ingr_scores[ingr] = {
             "carbonScore": carbonScore, "waterScore": waterScore}
 
     scores = [val for val in ingr_scores.values()]
-    totalCarbonScore = sum([dict["carbonScore"] for dict in scores])
-    totalWaterScore = sum([dict["waterScore"] for dict in scores])
+    totalCarbonScore = round(sum([dict["carbonScore"] for dict in scores]), 4)
+    totalWaterScore = round(sum([dict["waterScore"] for dict in scores]), 4)
 
     return (ingr_scores, totalCarbonScore, totalWaterScore)
 
@@ -93,11 +92,11 @@ def getWaterScore(ingr, grams):
     servings is the number of servings (int)
     returns a list of [litres of water/ kg food] per serving, for each ingredient
     """
-    kg = grams
+    kg = grams/1000
     ingr = getIngredientWater(ingr).upper()
     data = water_data.loc[water_data['Item'] == ingr]
-    print(ingr)
-    print(list(data['Water']))
+    if len(list(data['Water'])) == 0:
+        return 0
     water = list(data['Water'])[0]
     return water * kg
 
@@ -108,7 +107,7 @@ def getCarbonScore(ingr, grams):
     servings is the number of servings (int)
     returns a list of [kg CO2 eq/ kg food] per serving, for each ingredient
     """
-    kg = grams
+    kg = grams/1000
     ingr = ingr.upper()
     data = carbon_data.loc[carbon_data['Item'] == ingr]
     carbon = list(data['Carbon'])[0]
