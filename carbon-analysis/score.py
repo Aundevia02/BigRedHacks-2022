@@ -49,7 +49,7 @@ def parseAmount(amt):
     if stupidChar(amt[0]) != -1:
         return stupidChar(amt[0])
     else:
-        num = int(amt[0])
+        num = float(amt[0])
         return num
 
 
@@ -63,10 +63,7 @@ def getScores(ingredients, servings):
         print(f"amt: {amt}, unit: {unit}, ingr: {i}")
 
         ingr = getIngredient(i.split(" ")[-1].lower())
-        if "/" in amt:
-            amt = float(Fraction(amt))
-        else:
-            amt = float(amt)
+        amt = parseAmount(amt)
         unit = unit.lower()
         if ingr == "none":
             continue
