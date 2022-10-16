@@ -1,5 +1,5 @@
 chrome.tabs.executeScript({
   code: "window.getSelection().toString();"
 }, function (selection) {
-  document.getElementById('demo').innerHTML = selection[0];
+  document.getElementById('ingredients').innerHTML = selection[0];
 });

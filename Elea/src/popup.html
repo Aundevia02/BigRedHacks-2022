@@ -1,62 +1,46 @@
-<!-- <!DOCTYPE html>
-<html>
-
-<body>
-
-  <h2>My First Web Page</h2>
-  <p>My First Paragraph.</p>
-
-  <p id="demo"></p>
-
-  <script>
-    alert("test message");
-    document.getElementById("demo").innerHTML = chrome.tabs.executeScript({
-      code: "window.getSelection().toString();"
-    }, function (selection) {
-      selection
-    });
-  </script>
-
-</body>
-
-</html> -->
-
-
-
-<!doctype html>
+<!DOCtype html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>TitlePopHTML</title>
-  <style>
-    body {
-      width: 400px;
-      height: 500px;
-      background: rgb(236, 236, 236)
-    }
-
-    h1 {
-      color: rgb(9, 171, 82);
-    }
-
-    p {
-      color: rgb(52, 206, 121);
-      margin: 20px;
-    }
-
-    p1 {
-      color: rgb(196, 52, 206);
-      margin: 20px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./popup.css" />
 </head>
 
 <body>
   <h1>Elea</h1>
-  <p>Environmental Report:</p>
-  <p1 id="demo"></p1>
-  <script type="text/javascript" src="popup.js"></script>
+  <h2>_________________</h2>
+
+  <p>Selected Recipe</p>
+
+  <!-- <div id="ingredients"></div>
+  <script type="text/javascript" src="popup.js"></script> -->
+
+  <div class="flex-container">
+    <p2 id="ingredients"> temp word place </p2>
+    <div>
+      <script type="text/javascript" src="popup.js"></script>
+    </div>
+  </div>
+
+  <pc> Carbon Score </pc>
+  <div class="flex-container">
+    <p2 id="carbon-score"> temp carbon score </p2>
+    <div>
+      <label for="co2ScoreLine"></label>
+      <meter id="co2ScoreLine" value=30 min=0 low=30 high=60 max=100 optimum=20>0 out of 10</meter><br>
+    </div>
+  </div>
+
+  <pw> Water Score </pw>
+  <div class="flex-container">
+    <p2 id="water-score"> temp water score </p2>
+    <div>
+      <label for="waterScoreLine"></label>
+      <meter id="waterScoreLine" value=70 min=0 low=30 high=60 max=100 optimum=20>0 out of 10</meter><br>
+    </div>
+  </div>
 </body>
 
 </html>
