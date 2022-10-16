@@ -142,7 +142,3 @@ def printLines():
     for i in range(len(lines)):
         print(
             f"Ingredient: {ingredients[i]} \ngrams: {parseIngredient(lines[i])}")
-
-
-def parseIngredientGPT(ingredient_line, ingredient):
-    pass

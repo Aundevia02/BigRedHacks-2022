@@ -1,10 +1,8 @@
 import pandas as pd
-# from parseHTML import parse
 import difflib
 from fractions import Fraction
 
 
-# https://www.geeksforgeeks.org/how-to-do-fuzzy-matching-on-pandas-dataframe-column-using-python/
 carbon_data = pd.read_csv("data/carbon-data.csv")
 items = carbon_data['Item']
 carbonItems = [x.lower().strip() for x in items]
@@ -12,9 +10,6 @@ carbonItems = [x.lower().strip() for x in items]
 water_data = pd.read_csv("data/water-data.csv")
 water_items = water_data['Item']
 waterItems = [x.lower().strip() for x in water_items]
-
-# print(carbon_data.head())
-# print(carbon_data.loc[carbon_data['Item'] == 'BEER IN CAN'])
 
 
 def getIngredient(ingr):
