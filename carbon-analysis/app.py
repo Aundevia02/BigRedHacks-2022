@@ -1,5 +1,5 @@
 from score import getScore
-from parse import parseIngredient
+from parseHTML import parse
 from flask import Flask, request, jsonify
 import os
 
@@ -10,7 +10,6 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def query():
     ingredients = request.args.get['ingredients']
-    servings = request.args.get['servings']
 
     carbon_scores = getCarbonScores(ingredients, servings)
     water_scores = getWaterScores(ingredients, servings)
