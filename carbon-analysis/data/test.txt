@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html id="structuredProjectTemplate_1-0" class="comp no-js simplyrecipes journey-page  structuredProjectTemplate article-html html mntl-html" data-ab="60,99,58,62,63,99,34" data-resource-version="5.194.0" lang="en" data-lazy-threshold="100" data-simplyrecipes-resource-version="5.194.0" data-mantle-resource-version="3.13.505" data-lifestyle-food-resource-version="5.194.0" data-tracking-container="true">				
 <!--
