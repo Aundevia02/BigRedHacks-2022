@@ -8,15 +8,18 @@ import os
 app = Flask(__name__)
 
 
-@app.route("/query", methods=['GET'])
+@app.route("/query", methods=['POST'])
 def query():
-    html = request.args.get['ingredients']
-
+    html = request.data.decode()
+    # print(html)
     ingredients = get_ingredients(html)
-    servings = get_servings(html)
+    servings = int(get_servings(html))
+    print(servings)
 
     (ingr_scores, totalCarbonScore, totalWaterScore) = getScores(
         ingredients, servings)
+
+    print(f"total carbon: {totalCarbonScore} \ntotalWater: {totalWaterScore}")
 
     r = {"scores": ingr_scores, "total_carbon": totalCarbonScore,
          "total_water": totalWaterScore}
