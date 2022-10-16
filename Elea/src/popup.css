@@ -2,7 +2,7 @@ body {
     background-color: rgb(236, 236, 236);
     background-blend-mode: darken;
     width: 400px;
-    height: 500px;
+    height: 750px;
     padding-top: 20px;
 }
 
@@ -22,17 +22,17 @@ h2 {
     margin: 0px;
 }
 
-p {
-    font-size: 21px;
+h3 {
+    font-size: 17px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(66, 126, 94);
-    margin-top: 20px;
-    margin-bottom: 20px;
+    color: rgb(62, 62, 62);
+    margin-top: 5px;
+    margin-bottom: 5px;
     text-align: left;
 }
 
-p2 {
-    font-size: 15px;
+p {
+    font-size: 21px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(66, 126, 94);
     margin-top: 20px;
