@@ -5,6 +5,7 @@ def test_get_ingredients():
     with open("data/test.txt", "r") as text_file:
         data = text_file.read()
 
+        print(get_ingredients(data))
         print(get_servings(data))
 
 
