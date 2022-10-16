@@ -1,5 +1,5 @@
 import pandas as pd
-#from parse import parseIngredient
+from parseHTML import parse
 import difflib
 
 # https://www.geeksforgeeks.org/how-to-do-fuzzy-matching-on-pandas-dataframe-column-using-python/
@@ -9,8 +9,9 @@ print(list(items))
 # print(carbon_data.head())
 # print(carbon_data.loc[carbon_data['Item'] == 'BEER IN CAN'])
 
-difflib.get_close_matches(
-    "egg", ["eggs", "milk", "carrots", "celery", "steak"])
+
+def getScores(ingredient_string, servings):
+    pass
 
 
 def getWaterScores(ingredients, servings):

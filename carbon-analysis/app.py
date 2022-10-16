@@ -1,5 +1,6 @@
 from score import getScore
 from parse import parseIngredient
+#from parseHTML import parse
 from flask import Flask, request, jsonify
 import os
 
@@ -7,10 +8,9 @@ import os
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET'])
+@app.route("/query", methods=['GET'])
 def query():
-    ingList = request.args.get['ingredients']
-    servings = request.args.get['servings']
+    ingredients = request.args.get['ingredients']
 
     ingredients = [parseIngredient(line) for line in ingList.split("\n")]
 
