@@ -9,8 +9,10 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
 def query():
-    ingredients = request.args.get['ingredients']
+    ingList = request.args.get['ingredients']
     servings = request.args.get['servings']
+
+    ingredients = [parseIngredient(line) for line in ingList.split("\n")]
 
     carbon_scores = getCarbonScores(ingredients, servings)
     water_scores = getWaterScores(ingredients, servings)

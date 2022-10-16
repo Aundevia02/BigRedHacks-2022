@@ -4,61 +4,63 @@ import difflib
 
 carbon_data = pd.read_csv("data/carbon-data.csv")
 items = carbon_data['Item']
-items = [x.lower() for x in items]
+carbonItems = [x.lower() for x in items]
 
 
-def parseIngredient(ingredient_line, ingredient):
-    ingredient_line = ingredient_line.lower()
-    ingredient = ingredient.lower()
+# def parseIngredient(ingredient_line, ingredient):
+#     ingredient_line = ingredient_line.lower()
+#     ingredient = ingredient.lower()
 
-    abbr = {"tsp": "teaspoon", "tbsp": "tablespoon", "fl oz": "fluid ounce",
-            "c": "cup", "pt": "pint", "qt": "quart", "gal": "gallon"}
-    measures = ["tsp", "teaspoon", "tbsp", "tablespoon", "fl oz", "fluid ounce",
-                "c", "cup", "pt", "pint", "qt", "quart", "gal", "gallon"]
-    grams = {"teaspoon": 5, "tablespoon": 14.8, "fluid ounce": 30,
-             "cup": 200, "pint": 450, "quart": 900, "gallon": 3500}
+#     abbr = {"tsp": "teaspoon", "tbsp": "tablespoon", "fl oz": "fluid ounce",
+#             "c": "cup", "pt": "pint", "qt": "quart", "gal": "gallon"}
+#     measures = ["tsp", "teaspoon", "tbsp", "tablespoon", "fl oz", "fluid ounce",
+#                 "c", "cup", "pt", "pint", "qt", "quart", "gal", "gallon"]
+#     grams = {"teaspoon": 5, "tablespoon": 14.8, "fluid ounce": 30,
+#              "cup": 200, "pint": 450, "quart": 900, "gallon": 3500}
 
-    discretes = {"eggs": 40, "egg": 40, "bananas": 110, "banana": 110}
+#     discretes = {"eggs": 40, "egg": 40, "bananas": 110, "banana": 110}
 
-    for measure in measures:
-        if measure in ingredient_line or (measure + "s") in ingredient_line:
-            amount = ingredient_line[:ingredient_line.find(measure)]
-            if measure in abbr:
-                measure = abbr[measure]
-            print("measure: " + measure)
-            if "/" in amount:
-                value = float(sum(Fraction(s) for s in amount.split()))
-                return value * grams[measure]
-            if "and" in amount:
-                value = float(sum(Fraction(s) for s in amount.split(" and ")))
-                return value * grams[measure]
-            for c in amount:
-                if ord(c) == 188:
-                    return 1/4 * grams[measure]
-                elif ord(c) == 189:
-                    return 1/2 * grams[measure]
-                elif ord(c) == 190:
-                    return 3/4 * grams[measure]
-            return int(amount) * grams[measure]
+#     for measure in measures:
+#         if measure in ingredient_line or (measure + "s") in ingredient_line:
+#             amount = ingredient_line[:ingredient_line.find(measure)]
+#             if measure in abbr:
+#                 measure = abbr[measure]
+#             print("measure: " + measure)
+#             if "/" in amount:
+#                 value = float(sum(Fraction(s) for s in amount.split()))
+#                 return value * grams[measure]
+#             if "and" in amount:
+#                 value = float(sum(Fraction(s) for s in amount.split(" and ")))
+#                 return value * grams[measure]
+#             for c in amount:
+#                 if ord(c) == 188:
+#                     return 1/4 * grams[measure]
+#                 elif ord(c) == 189:
+#                     return 1/2 * grams[measure]
+#                 elif ord(c) == 190:
+#                     return 3/4 * grams[measure]
+#             return int(amount) * grams[measure]
 
-    if not any(char.isdigit() for char in ingredient_line):
-        return 0
-    # no measure included
-    amount = ingredient_line[:ingredient_line.find(ingredient)]
-    values = amount.split()
-    if ingredient in discretes:
-        return discretes[ingredient] * int(values[0])
-    return int(values[0])
+#     if not any(char.isdigit() for char in ingredient_line):
+#         return 0
+#     # no measure included
+#     amount = ingredient_line[:ingredient_line.find(ingredient)]
+#     values = amount.split()
+#     if ingredient in discretes:
+#         return discretes[ingredient] * int(values[0])
+#     return int(values[0])
 
 
 # data is the rest of the ingreidents such as ["large","eggs"]. it should return the ingredient eggs
 # returns none if it doesn't match
 def getIngredient(data):
+    allItems = []
     for item in data:
         choices = difflib.get_close_matches(item, items)
         if choices == []:
             return "none"
-        return choices[0]
+        allItems += choices
+    return allItems[0]
 
 
 def stupidChar(c):
@@ -85,7 +87,7 @@ def parseIngredient(ingredient_line):
                 num += stupidChar(data[0])
                 del data[0]
         elif "/" in data[0]:
-            num += float(sum(Fraction(s) for s in data[1].split()))
+            num += float(sum(Fraction(s) for s in data[0].split()))
             del data[0]
 
     abbr = {"tsp": "teaspoon", "tbsp": "tablespoon", "fl oz": "fluid ounce",
