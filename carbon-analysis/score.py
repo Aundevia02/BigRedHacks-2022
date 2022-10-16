@@ -1,5 +1,5 @@
 import pandas as pd
-from parseHTML import parse
+#from parseHTML import parse
 import difflib
 
 # https://www.geeksforgeeks.org/how-to-do-fuzzy-matching-on-pandas-dataframe-column-using-python/
