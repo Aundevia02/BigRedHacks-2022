@@ -1,8 +1,8 @@
 {
-    "name": "Get pages source",
+    "name": "Elea",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Get pages source from a popup",
+    "description": "Elea Description",
     "browser_action": {
         "default_icon": "main_icon.png",
         "default_popup": "popup.html"
