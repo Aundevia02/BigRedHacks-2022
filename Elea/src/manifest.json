@@ -1,18 +1,14 @@
 {
+    "name": "Get pages source",
+    "version": "1.0",
     "manifest_version": 2,
-    "name": "Elea",
-    "description": "Desc for Elea",
-    "version": "1.0.0",
-    "icons": {
-        "16": "main_icon.png",
-        "48": "main_icon.png",
-        "128": "main_icon.png"
-    },
-    "permissions": [
-        "activeTab"
-    ],
+    "description": "Get pages source from a popup",
     "browser_action": {
         "default_icon": "main_icon.png",
         "default_popup": "popup.html"
-    }
+    },
+    "permissions": [
+        "tabs",
+        "<all_urls>"
+    ]
 }
