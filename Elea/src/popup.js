@@ -1,13 +1,54 @@
+async function fetchInfo(urlly){
+  
+ const post = await fetch(urlly, { // URL as http://www.example.com/?foo=bar&fizz=buzz
+    method: "POST",
+    headers: contents,
+    body: request.source // The actual body
+  });
+
+  message.innerText = post;
+  alert(post);
+}
+
+
+
 chrome.runtime.onMessage.addListener(function (request, sender) {
   if (request.action == "getSource") {
     // message.innerText = request.source;
     message.innerText = getTitle(request.source);
-
-    var rawString = fetch('http://10.49.66.241:5001/query');
+    
+    // const data = {
+    //   ingredients: request.source
+    // }
+    
+    // const post = await fetchInfo(urlly);
+    
     // var json = JSON.parse(rawString);
-    alert(rawString);
+    // alert(post);
+
+    // var json = JSON.parse(post)
+    const urlly = new URL("http://10.49.66.241:5001/query");
+    const contents = {
+    contentType: "text/plain"
   }
-});
+
+    const rawResponse = fetch(urlly, {
+      method: 'POST',
+      headers: contents,
+      body: request.source
+      }).then((res) => res.json()).then((data) =>  doStuff(data)
+      )
+      
+    }
+
+      // alert(rawResponse);
+  });
+
+function doStuff(data){
+  console.log(data)
+  
+  message.innerText = data["scores"];
+}
 
 function onWindowLoad() {
 
@@ -34,3 +75,28 @@ function getTitle(html_string) {
   );
   return part;
 }
+
+async function getInfo(){
+  const urlly = new URL("http://10.49.66.241:5001/query");
+  const contents = {
+    contentType: "text/plain"
+  }
+  getDevices = async () => {
+    const settings = {
+        method: 'POST',
+        headers: contents,
+        body : request.source
+    };
+    try {
+      const fetchResponse = await fetch(url, settings);
+      const data = await fetchResponse.json();
+      message.innerText = data;
+  } catch (e) {
+      alert(e);
+  }
+  }
+
+  // message.innerText = getDevices;
+}
+
+// Then use it like so with async/await:
