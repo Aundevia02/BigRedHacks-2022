@@ -1,16 +1,3 @@
-async function fetchInfo(urlly){
-  
- const post = await fetch(urlly, { // URL as http://www.example.com/?foo=bar&fizz=buzz
-    method: "POST",
-    headers: contents,
-    body: request.source // The actual body
-  });
-
-  message.innerText = post;
-  alert(post);
-}
-
-
 
 chrome.runtime.onMessage.addListener(function (request, sender) {
   if (request.action == "getSource") {
@@ -27,7 +14,7 @@ chrome.runtime.onMessage.addListener(function (request, sender) {
     // alert(post);
 
     // var json = JSON.parse(post)
-    const urlly = new URL("http://10.49.66.241:5001/query");
+    const urlly = new URL("http://10.49.7.146:5000/query");
     const contents = {
     contentType: "text/plain"
   }
@@ -36,8 +23,7 @@ chrome.runtime.onMessage.addListener(function (request, sender) {
       method: 'POST',
       headers: contents,
       body: request.source
-      }).then((res) => res.json()).then((data) =>  doStuff(data)
-      )
+      }).then((res) => res.json()).then((data) =>  doStuff(data))
       
     }
 
@@ -47,12 +33,39 @@ chrome.runtime.onMessage.addListener(function (request, sender) {
 function doStuff(data){
   console.log(data)
   
-  message.innerText = data["scores"];
+
+  document.getElementById("co2ScoreLine").setAttribute('value', data["total_carbon"]);
+  document.getElementById("carbon-score").innerText = data["total_carbon"] + " Kg of CO2"
+  document.getElementById("waterScoreLine").setAttribute('value', data["total_water"]);
+  document.getElementById("water-score").innerText = data["total_water"] + " Liters of water"
+  
+  // alert(JSON.stringify(data));
+
+  const ingredientsKeys = Object.keys(data.scores);
+  var ingredients = []
+  for (let ing in data.scores){
+    ingredients.push(data.scores[ing]);
+  } 
+  
+  // var sortCarbon = ingredients.slice().sort(function(a,b){return a.carbonScore-b.carbonScore});
+
+  // message.innerText = ingredients;
+  // message.innerText = text;
+
+
+  for (let i = 0; i < ingredientsKeys.length && i < 2; i++){
+    document.getElementById(i+1+"-co2-worst").innerText = ingredientsKeys[i];
+    document.getElementById(i+1+"-water-worst").innerText = ingredientsKeys[i];
+  }
 }
+
+
+
 
 function onWindowLoad() {
 
   var message = document.querySelector('#message');
+
 
   chrome.tabs.executeScript(null, {
     file: "getPagesSource.js"
@@ -76,27 +89,5 @@ function getTitle(html_string) {
   return part;
 }
 
-async function getInfo(){
-  const urlly = new URL("http://10.49.66.241:5001/query");
-  const contents = {
-    contentType: "text/plain"
-  }
-  getDevices = async () => {
-    const settings = {
-        method: 'POST',
-        headers: contents,
-        body : request.source
-    };
-    try {
-      const fetchResponse = await fetch(url, settings);
-      const data = await fetchResponse.json();
-      message.innerText = data;
-  } catch (e) {
-      alert(e);
-  }
-  }
-
-  // message.innerText = getDevices;
-}
 
 // Then use it like so with async/await:
